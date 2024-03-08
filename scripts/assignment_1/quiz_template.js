@@ -22,13 +22,13 @@ const { getUserAnswer, extractQuestion } =
 // Create Signer and Contract.
 //////////////////////////////
 
-const providerKey = process.env.ALCHEMY_KEY;
+const providerKey = process.env.ALCHEMY_SEPOLIA_KEY;
 const sepoliaUrl = `${process.env.ALCHEMY_SEPOLIA_API_URL}${providerKey}`;
 // console.log(sepoliaUrl);
 const sepoliaProvider = new ethers.JsonRpcProvider(sepoliaUrl);
 
 const signer = new ethers.Wallet(
-    process.env.METAMASK_1_PRIVATE_KEY,
+    process.env.METAMASK_PRIVATE_KEY,
     sepoliaProvider
 );
 
@@ -43,27 +43,32 @@ async function main() {
 
     // A. Ask question and get a transaction receipt.
     // Hint: method `askQuestion()`
-
-    // Your code here.
-
+    const transactionResponse = await quizContract.askQuestion();
+    const receipt = await transactionResponse.wait();
     // From the transaction receipt we can extract useful information, such as
     // as the question's text and id that were stored in the logs
     // (we will understand logs in detail later in the course).
     const { text, id } = extractQuestion(quizContract, receipt);
-
+    console.log("Question " + id + ": " + text);
     // Now YOU answer the question!
     // Capture user input from the terminal.
     const userAnswer = await getUserAnswer();
-
     // B. Send the answer to the smart contract.
     // Hint: method `answerQuestion`.
-
-    // Your code here.
-
+    const answerTransaction = await quizContract.answerQuestion(id, userAnswer);
+    const answerReceipt = await answerTransaction.wait();
+    console.log("Answer submitted successfully");
+    console.log(answerReceipt);
     // C. Optional. Verify that the answer is correctly stored.
     // Hint: method `getAnswer(questionId)`
-
-    // Your code here.
+    // const correctAnswer = await quizContract.getAnswer(id);
+    // console.log(userAnswer);
+    // console.log(correctAnswer);
+    // if (correctAnswer === userAnswer) {
+    //     console.log("Question answered correctly!!!");
+    // } else {
+    //     console.log("Wrong answer :c");
+    // }
 }
 
 
