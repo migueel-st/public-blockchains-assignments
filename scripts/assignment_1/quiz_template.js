@@ -61,14 +61,9 @@ async function main() {
     console.log(answerReceipt);
     // C. Optional. Verify that the answer is correctly stored.
     // Hint: method `getAnswer(questionId)`
-    // const correctAnswer = await quizContract.getAnswer(id);
-    // console.log(userAnswer);
-    // console.log(correctAnswer);
-    // if (correctAnswer === userAnswer) {
-    //     console.log("Question answered correctly!!!");
-    // } else {
-    //     console.log("Wrong answer :c");
-    // }
+    const correctAnswer = await quizContract.getAnswer(id);
+    console.log("[myAnswer, correctAnswer]:");
+    console.log(correctAnswer);
 }
 
 
