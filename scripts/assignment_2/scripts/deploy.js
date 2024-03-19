@@ -7,22 +7,13 @@
 const hre = require("hardhat");
 
 async function main() {
-  const questions = ["Can penguins fly?",
-                     "Did Chilly Willy wear a hat?",
-                     "Do penguins have feathers?",
-                     "Does pangolin mean penguin in spanish?"];
-
+  const questions = ["Can penguins fly?", "Did Chilly Willy wear a hat?", "Do penguins have feathers?", "Does pangolin mean penguin in spanish?"];
   const answers = [true, true, false, false];
 
-  const lock = await hre.ethers.deployContract("MyQuiz", questions, answers);
-
+  console.log("Deploying contract ...");
+  const lock = await hre.ethers.deployContract("MyQuiz", [questions, answers]);
   await lock.waitForDeployment();
-
-  console.log(
-    `Lock with ${ethers.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.target}`
-  );
+  console.log("Contract has been deployed :)");
 }
 
 // We recommend this pattern to be able to use async/await everywhere
