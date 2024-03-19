@@ -7,14 +7,14 @@
 const hre = require("hardhat");
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = currentTimestampInSeconds + 60;
+  const questions = ["Can penguins fly?",
+                     "Did Chilly Willy wear a hat?",
+                     "Do penguins have feathers?",
+                     "Does pangolin mean penguin in spanish?"];
 
-  const lockedAmount = hre.ethers.parseEther("0.001");
+  const answers = [true, true, false, false];
 
-  const lock = await hre.ethers.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
+  const lock = await hre.ethers.deployContract("MyQuiz", questions, answers);
 
   await lock.waitForDeployment();
 
