@@ -13,7 +13,7 @@ async function main() {
   console.log("Deploying contract ...");
   const lock = await hre.ethers.deployContract("MyQuiz", [questions, answers]);
   await lock.waitForDeployment();
-  console.log("Contract has been deployed :)");
+  console.log(`Contract deployed to: ${lock.target}`);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
