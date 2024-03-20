@@ -8,7 +8,7 @@ const hre = require("hardhat");
 
 async function main() {
   const questions = ["Can penguins fly?", "Did Chilly Willy wear a hat?", "Do penguins have feathers?", "Does pangolin mean penguin in spanish?"];
-  const answers = [true, true, false, false];
+  const answers = [false, true, true, false];
 
   console.log("Deploying contract ...");
   const lock = await hre.ethers.deployContract("MyQuiz", [questions, answers]);
